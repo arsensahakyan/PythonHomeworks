@@ -20,8 +20,7 @@ def check_padindrome(string):
             list_of_chars.remove(string[i])
         else:
             list_of_chars.append(string[i])
-    if len(string) % 2 == 0 and len(list_of_chars) == 0 or (len(string) % 2 == 1 and len(list_of_chars) == 1):
-        return True
-    else:
-        return False
+
+    return len(string) % 2 == len(list_of_chars)
+
 print(check_padindrome(input()))
