@@ -1,16 +1,16 @@
 # 1
-# input_values = []
-# dict_of_values = {}
-# inp = input()
-# while inp != "End":
-#     input_values.append(inp)
-#     inp = input()
-#
-# for elem in input_values:
-#     if not dict_of_values.get(elem, False):
-#         dict_of_values[elem] = 1
-#     else:
-#         dict_of_values[elem] += 1
+ input_values = []
+ dict_of_values = {}
+ inp = input()
+ while inp != "End":
+     input_values.append(inp)
+     inp = input()
+
+ for elem in input_values:
+     if not dict_of_values.get(elem, False):
+         dict_of_values[elem] = 1
+     else:
+         dict_of_values[elem] += 1
 
 # 2
 def check_padindrome(string):
