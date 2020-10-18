@@ -17,7 +17,6 @@ n = [superString.find(n) for n in subString]
 print(superString[min(n):max(n)+1])
 
 # Narek
-
 # 1
 list = [1, 5, 1]
 n = 0
