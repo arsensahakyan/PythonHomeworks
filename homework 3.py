@@ -51,5 +51,6 @@ def check(arr):
         return False
     else:
         return True
+    return False
 
 print(check(nums))
