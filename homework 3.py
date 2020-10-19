@@ -34,20 +34,22 @@ n += k
 print(list, n)
 
 # 2
-nums =  [1,3,4,2,6]
 def check(arr):
     count = 0
     for number in set(arr):
-        if arr.count(number) > 1:
+        if arr.count(number) == 2:
             count += 1
-    if count > 1:
-        return False
+        elif arr.count(number) > 2:
+            return False
     for i in range(len(arr)-1):
         del_num = arr.pop(i)
         if arr == sorted(arr):
             return True
         else:
-            arr.insert(i, del_num)
-    return False
+         arr.insert(i, del_num)
+    if count > 1:
+        return False
+    else:
+        return True
 
 print(check(nums))
