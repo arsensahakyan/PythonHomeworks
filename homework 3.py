@@ -18,30 +18,36 @@ print(superString[min(n):max(n)+1])
 
 # Narek
 # 1
-list = [1, 5, 1]
+list = [6, 5, 3, 6, 4]
 n = 0
-for i in range(1,len(list)):
-    numb = list[i-1]-list[i]+1
-    if list[i] <= list[i-1]:
-        if numb < list[i-1]:
-            list[i-1] += list[i-1]+numb
-            n += numb
-        else:
-            list[i] = list[i]+numb
-            n += numb
-    else:
-        if list[i]-list[i-1] != 1:
-            numb = list[i]-list[i-1]
-            list[i-1] += numb-1
-            n += numb-1
-print(n)
+for i in range(1, len(list)-1, 1):
+    if list[i] != list[i + 1]-1 and list[i - 1] >= list[i]:
+        k = list[i - 1] - list[i] + 1
+        list[i] += k
+        n += k
+k = list[-2] - list[-1] + 1
+list[-1] += k
+n += k
+k = list[1] - list[0] - 1
+list[0] += k
+n += k
+print(list, n)
 
 # 2
-nums = [1, 3, 4, 2, 6, 0]
-n = 0
-for i in range(len(nums)-1):
-    if nums[i] >= nums[i+1]:
-        n+=1
-        if n > 1:
-            break
-print(n<=1)
+nums =  [1,3,4,2,6]
+def check(arr):
+    count = 0
+    for number in set(arr):
+        if arr.count(number) > 1:
+            count += 1
+    if count > 1:
+        return False
+    for i in range(len(arr)-1):
+        del_num = arr.pop(i)
+        if arr == sorted(arr):
+            return True
+        else:
+            arr.insert(i, del_num)
+    return False
+
+print(check(nums))
