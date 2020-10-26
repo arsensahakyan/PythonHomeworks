@@ -1,4 +1,5 @@
 # Ruben
+
 # 1
 def check():
     clubs = {}
@@ -9,6 +10,7 @@ def check():
     for i in range(len(clubs)):
         inp = input().replace(' ', '').split(',')
         clubs_surnames[list(clubs.keys())[list(clubs.values()).index(len(inp))]] = inp
+    print(clubs_surnames)
     students = input().replace(' ', '').split(',')
     minn = [0 for elem in students]
     for i in range(len(students)):
@@ -17,8 +19,11 @@ def check():
                 minn[i] += 1
     k = [elem for elem in students if minn[students.index(elem)] == min(minn)]
     k.sort()
-    return k[0]
-
+    k = [k[0]]
+    for elem in clubs_surnames:
+        if k[0] in clubs_surnames[elem]:
+            k.append(elem)
+    print(k[0], ' : ',', '.join(k[1:]), sep="")
 
 check()
 
@@ -33,13 +38,15 @@ def add_item(itemName, itemCost):
 def print_receipt():
     global number
     global bag
-    number += 1
-    print(f'Cheque {number}. Count of things : {len(bag)//2}')
-    for elem in range(0, len(bag), 2):
-        print(bag[elem], '-', bag[elem + 1])
-    print(f'Amount : {sum([bag[elem] for elem in range(1, len(bag), 2)])}')
-    print('-----')
-    bag = []
+    if len(bag) != 0:
+        number += 1
+        print(f'Cheque {number}. Count of things : {len(bag)//2}')
+        for elem in range(0, len(bag), 2):
+            print(bag[elem], '-', bag[elem + 1])
+        print(f'Amount : {sum([bag[elem] for elem in range(1, len(bag), 2)])}')
+        print('-----')
+        bag = []
+print_receipt()
 
 
 # Narek
