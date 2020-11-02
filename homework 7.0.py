@@ -57,26 +57,23 @@ print(sorting([2, -1, 1, 5, 4, -1, 3]))
 board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 'w', 0, 'f', 0, 0, 0, 0, 0],
-    [0, 0, 0, 10, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 'w', 0, 'f', 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 10, 0, 0, 0, 0]
+    [0, 0, 0, 0, 10, 10, 0, 0, 0, 0]
 ]
 
 
 def get_pos(board):
-    b = board
     return_value = []
-    for row in b:
-        for col in row:
-            print(f' col : {col}, {row.index(col)}')
-            if str(col).isdigit() and col > 0:
-                return_value.append([b.index(row), row.index(col)])
-                b[b.index(row)][row.index(col)] = 0
+    for row in board:
+        for col in range(len(row)):
+            if str(row[col]).isdigit() and row[col] > 0:
+                return_value.append([board.index(row), col])
                 continue
     return len(return_value), return_value
 
@@ -96,36 +93,43 @@ def step(pos, board):
     neighbors = get_neighbors(pos, board)
     poses = get_pos(board)
     num = board[pos[0]][pos[1]]
+    print(f'poses : {poses}')
+    print(*board, sep='\n')
     if poses[0] == 2:
         poses[1].remove(pos)
         enemy_pos = poses[1][0]
         if board[enemy_pos[0]][enemy_pos[1]] in neighbors.keys():
-            enemy = neighbors[poses[1].remove(pos)[0]][0]
-            if board[pos[0]][pos[1]] > board[enemy[0]][enemy[1]]:
-                board[pos[0]][pos[1]] -= board[enemy[0]][enemy[1]]
-                board[enemy[0]][enemy[1]] = 'd'
+            if board[pos[0]][pos[1]] > board[enemy_pos[0]][enemy_pos[1]]:
+                board[pos[0]][pos[1]] -= board[enemy_pos[0]][enemy_pos[1]]
+                board[enemy_pos[0]][enemy_pos[1]] = 'd'
                 return board
-            elif board[pos[0]][pos[1]] < board[enemy[0]][enemy[1]]:
-                board[enemy[0]][enemy[1]] -= board[pos[0]][pos[1]]
+            elif board[pos[0]][pos[1]] < board[enemy_pos[0]][enemy_pos[1]]:
+                board[enemy_pos[0]][enemy_pos[1]] -= board[pos[0]][pos[1]]
                 board[pos[0]][pos[1]] = 'd'
                 return board
             else:
+                print('mtel e stex vy')
                 board[pos[0]][pos[1]] = 'd'
-                board[enemy[0]][enemy[1]] = 'd'
+                board[enemy_pos[0]][enemy_pos[1]] = 'd'
                 return board
     if len(neighbors.keys()) == 1:
-        random_number = int(random.uniform(0, len(neighbors[0])))
-        p = neighbors[0][random_number]
+
         if list(neighbors.keys())[0] == 0:
+            random_number = int(random.uniform(0, len(neighbors[0])))
+            p = neighbors[0][random_number]
             board[pos[0]][pos[1]] = 0
             if num > 1:
                 board[p[0]][p[1]] = num - 1
             else:
                 board[p[0]][p[1]] = 'd'
         elif list(neighbors.keys())[0] == 'w':
+            random_number = int(random.uniform(0, len(neighbors[0])))
+            p = neighbors[0][random_number]
             board[pos[0]][pos[1]] = 0
             board[p[0]][p[1]] = num + 1
         else:
+            random_number = int(random.uniform(0, len(neighbors[0])))
+            p = neighbors[0][random_number]
             board[pos[0]][pos[1]] = 0
             board[p[0]][p[1]] = num + 0.5
     elif len(neighbors.keys()) > 1:
