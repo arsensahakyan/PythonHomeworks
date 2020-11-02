@@ -56,23 +56,32 @@ print(sorting([2, -1, 1, 5, 4, -1, 3]))
 # 2
 board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 'w', 0, 'f', 0, 0, 0, 0, 0],
+    [0, 0, 'w', 10, 'f', 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 'w', 0, 'f', 0, 0, 0, 0, 0],
+    [0, 0, 'w', 1.0, 'f', 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 10, 10, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
-
+def isnum(str):
+    if str.isdigit():
+        # print(f'True : {str}')
+        return True
+    elif '.' in str:
+        # print(f'True : {str}')
+        return True
+    else:
+        # print(f'False : {str}')
+        return False
 
 def get_pos(board):
     return_value = []
     for row in board:
         for col in range(len(row)):
-            if str(row[col]).isdigit() and row[col] > 0:
+            if isnum(str(row[col])) and row[col] > 0:
                 return_value.append([board.index(row), col])
                 continue
     return len(return_value), return_value
@@ -90,6 +99,7 @@ def get_neighbors(pos, board):
 
 
 def step(pos, board):
+    print(*board, sep='\n', end='\n\n')
     neighbors = get_neighbors(pos, board)
     poses = get_pos(board)
     num = board[pos[0]][pos[1]]
@@ -109,28 +119,31 @@ def step(pos, board):
                 board[pos[0]][pos[1]] = 'd'
                 board[enemy_pos[0]][enemy_pos[1]] = 'd'
                 return board
-    if len(neighbors.keys()) == 1:
-
+    if len(list(neighbors.keys())) == 1:
         if list(neighbors.keys())[0] == 0:
             random_number = int(random.uniform(0, len(neighbors[0])))
             p = neighbors[0][random_number]
             board[pos[0]][pos[1]] = 0
             if num > 1:
                 board[p[0]][p[1]] = num - 1
+                return board
             else:
                 board[p[0]][p[1]] = 'd'
+                return board
         elif list(neighbors.keys())[0] == 'w':
-            random_number = int(random.uniform(0, len(neighbors[0])))
+            random_number = int(random.uniform(0, len(neighbors['w'])))
             p = neighbors[0][random_number]
             board[pos[0]][pos[1]] = 0
             board[p[0]][p[1]] = num + 1
+            return board
         else:
-            random_number = int(random.uniform(0, len(neighbors[0])))
+            random_number = int(random.uniform(0, len(neighbors['f'])))
             p = neighbors[0][random_number]
             board[pos[0]][pos[1]] = 0
             board[p[0]][p[1]] = num + 0.5
-    elif len(neighbors.keys()) > 1:
-        if 'w' in neighbors.keys():
+            return board
+    elif len(list(neighbors.keys())) > 1:
+        if 'w' in list(neighbors.keys()):
             if len(neighbors['w']) == 1:
                 p = neighbors['w'][0]
                 board[pos[0]][pos[1]] = 0
@@ -142,7 +155,7 @@ def step(pos, board):
                 board[pos[0]][pos[1]] = 0
                 board[p[0]][p[1]] = num + 1
                 return board
-        elif 'f' in neighbors.keys():
+        elif 'f' in list(neighbors.keys()):
             if len(neighbors['f']) == 1:
                 p = neighbors['f'][0]
                 board[pos[0]][pos[1]] = 0
@@ -154,20 +167,23 @@ def step(pos, board):
                 board[pos[0]][pos[1]] = 0
                 board[p[0]][p[1]] = num + 0.5
                 return board
-        else:
+        elif 0 in list(neighbors.keys()):
             if len(neighbors[0]) == 1:
                 p = neighbors[0][0]
                 board[pos[0]][pos[1]] = 0
                 if num > 1:
                     board[p[0]][p[1]] = num - 1
+                    return board
                 else:
                     board[p[0]][p[1]] = 'd'
                 return board
             else:
                 random_number = int(random.uniform(0, len(neighbors[0])))
                 p = neighbors[0][random_number]
+                board[pos[0]][pos[1]] = 0
                 if num > 1:
                     board[p[0]][p[1]] = num - 1
+                    return board
                 else:
                     board[p[0]][p[1]] = 'd'
                 return board
@@ -184,6 +200,7 @@ def game(board):
                 step(pos[1][1], board)
         else:
             step(pos[1][0], board)
+
         pos = get_pos(board)
 
     return board
