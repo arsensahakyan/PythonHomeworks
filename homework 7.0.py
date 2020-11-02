@@ -69,11 +69,15 @@ board = [
 
 
 def get_pos(board):
+    b = board
     return_value = []
-    for row in board:
+    for row in b:
         for col in row:
+            print(f' col : {col}, {row.index(col)}')
             if str(col).isdigit() and col > 0:
-                return_value.append([board.index(row), row.index(col)])
+                return_value.append([b.index(row), row.index(col)])
+                b[b.index(row)][row.index(col)] = 0
+                continue
     return len(return_value), return_value
 
 def get_neighbors(pos, board):
