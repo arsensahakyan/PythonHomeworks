@@ -93,8 +93,6 @@ def step(pos, board):
     neighbors = get_neighbors(pos, board)
     poses = get_pos(board)
     num = board[pos[0]][pos[1]]
-    print(f'poses : {poses}')
-    print(*board, sep='\n')
     if poses[0] == 2:
         poses[1].remove(pos)
         enemy_pos = poses[1][0]
@@ -108,7 +106,6 @@ def step(pos, board):
                 board[pos[0]][pos[1]] = 'd'
                 return board
             else:
-                print('mtel e stex vy')
                 board[pos[0]][pos[1]] = 'd'
                 board[enemy_pos[0]][enemy_pos[1]] = 'd'
                 return board
@@ -182,7 +179,9 @@ def game(board):
     while pos[0] > 0:
         if pos[0] == 2:
             step(pos[1][0], board)
-            step(pos[1][1], board)
+            pos = get_pos(board)
+            if pos[0] == 2:
+                step(pos[1][1], board)
         else:
             step(pos[1][0], board)
         pos = get_pos(board)
