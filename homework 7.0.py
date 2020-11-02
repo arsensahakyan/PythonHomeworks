@@ -3,55 +3,55 @@ import random
 
 # Ruben
 # 1
-# def swap_list_elements(nums):
-#     return_list = ['empty' for i in range(len(nums))]
-#     for i in range(len(nums)):
-#         if nums[i] % 2 == 0:
-#             for j in range(0, len(return_list), 2):
-#                 if return_list[j] == 'empty':
-#                     return_list[j] = nums[i]
-#                     break
-#         else:
-#             for j in range(1, len(return_list), 2):
-#                 if return_list[j] == 'empty':
-#                     return_list[j] = nums[i]
-#                     break
-#     return return_list
-#
-#
-# nums = [1, 4, 6, 5, 7, 10]
+def swap_list_elements(nums):
+    return_list = ['empty' for i in range(len(nums))]
+    for i in range(len(nums)):
+        if nums[i] % 2 == 0:
+            for j in range(0, len(return_list), 2):
+                if return_list[j] == 'empty':
+                    return_list[j] = nums[i]
+                    break
+        else:
+            for j in range(1, len(return_list), 2):
+                if return_list[j] == 'empty':
+                    return_list[j] = nums[i]
+                    break
+    return return_list
+
+
+nums = [1, 4, 6, 5, 7, 10]
 
 # 2
-# def get_count_of_rectangles(dict_of_points):
-#     squads = list(permutations(dict_of_points.keys(), 4))
-#     return_squads = []
-#     for squad in squads:
-#         x = 0
-#         y = 1
-#         A = dict_of_points[squad[0]]
-#         B = dict_of_points[squad[1]]
-#         C = dict_of_points[squad[2]]
-#         D = dict_of_points[squad[3]]
-#         if A[x] == B[x] and B[y] == C[y] and C[x] == D[x] and A[y] == D[y]:
-#             return_squads.append(''.join(sorted(list(squad))))
-#     return set(return_squads)
+def get_count_of_rectangles(dict_of_points):
+    squads = list(permutations(dict_of_points.keys(), 4))
+    return_squads = []
+    for squad in squads:
+        x = 0
+        y = 1
+        A = dict_of_points[squad[0]]
+        B = dict_of_points[squad[1]]
+        C = dict_of_points[squad[2]]
+        D = dict_of_points[squad[3]]
+        if A[x] == B[x] and B[y] == C[y] and C[x] == D[x] and A[y] == D[y]:
+            return_squads.append(''.join(sorted(list(squad))))
+    return set(return_squads)
 
 
-# dict_of_points = {'A': (0, 0), 'B': (0, 4), 'C': (2, 0), 'D': (2, 4), 'E': (0, -4), 'F': (2, -4)}
-# print(get_count_of_rectangles(dict_of_points))
+dict_of_points = {'A': (0, 0), 'B': (0, 4), 'C': (2, 0), 'D': (2, 4), 'E': (0, -4), 'F': (2, -4)}
+print(get_count_of_rectangles(dict_of_points))
 
 # Narek
 # 1
-# def sorting(nums_and_trees):
-#     nt = sorted(nums_and_trees)[nums_and_trees.count(-1):]
-#     for num in nums_and_trees:
-#         if num == -1:
-#             nt.insert(nums_and_trees.index(-1), -1)
-#             nums_and_trees[nums_and_trees.index(-1)] = 0
-#     return nt
-#
-#
-# print(sorting([2, -1, 1, 5, 4, -1, 3]))
+def sorting(nums_and_trees):
+    nt = sorted(nums_and_trees)[nums_and_trees.count(-1):]
+    for num in nums_and_trees:
+        if num == -1:
+            nt.insert(nums_and_trees.index(-1), -1)
+            nums_and_trees[nums_and_trees.index(-1)] = 0
+    return nt
+
+
+print(sorting([2, -1, 1, 5, 4, -1, 3]))
 
 # 2
 board = [
