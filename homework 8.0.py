@@ -24,8 +24,8 @@ def check(name, **nm):
             print(' '.join(re.findall('[A-Z][^A-Z]*', book)))
 
 
-check('Oscar Wilde', TheImportanceOfBeingEarnest='Oscar Wilde, 1895', AWomanOfNoImportance='Oscar Wilde, 1895',
-  Hamlet='Shakespeare, 1870', ThePictureOfDorianGray='Oscar Wilde, 1890')
+#check('Oscar Wilde', TheImportanceOfBeingEarnest='Oscar Wilde, 1895', AWomanOfNoImportance='Oscar Wilde, 1895',
+  # Hamlet='Shakespeare, 1870', ThePictureOfDorianGray='Oscar Wilde, 1890')
 
 # 2
 def biggest(arr):
@@ -35,12 +35,15 @@ def biggest(arr):
     return max(big)
 
 
-print(biggest([9, 5, 8, 5, 20, 1, 2, -3, -2, -1, 0]))
+#print(biggest([9, 5, 8, 5, 20, 1, 2, -3, -2, -1, 0]))
 
 # Ruben
 # 1
+
 def answer_queries(k, *query_counts):
     query_counts = list(query_counts)
+    if len(query_counts) == 1:
+        return query_counts[0]//k+1
     for num in range(len(query_counts)):
         if query_counts[num] > k:
             query_counts[num + 1] += query_counts[num] - k
@@ -50,7 +53,7 @@ def answer_queries(k, *query_counts):
             return num + 1
 
 
-print(answer_queries(5, 10, 5, 5, 3, 2, 1))
+print(answer_queries(3,  100))
 
 # 2
 def non_decreasing_sequence(*nums):
@@ -58,6 +61,8 @@ def non_decreasing_sequence(*nums):
     absnum = [abs(num) for num in nums]
     sortnums = sorted(nums)
     if 0 not in nums:
+        if nums == sorted(nums, reverse=True):
+            return 'Yes', [-num for num in nums]
         if absnum == sorted(absnum):
             return 'Yes', absnum
         else:
@@ -87,4 +92,4 @@ def non_decreasing_sequence(*nums):
 
 
 
-print(non_decreasing_sequence(1, 0, 1))
+#print(non_decreasing_sequence(7, 5, 4, 3, 2, 1))
