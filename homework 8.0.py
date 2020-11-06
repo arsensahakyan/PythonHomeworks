@@ -55,7 +55,7 @@ def answer_queries(k, *query_counts):
             return num + 1
 
 
-print(answer_queries(3,  100))
+#print(answer_queries(3,  100))
 
 # 2
 def non_decreasing_sequence(*nums):
@@ -70,9 +70,7 @@ def non_decreasing_sequence(*nums):
         else:
             for i in range(len(absnum)-1):
                 if absnum[i] < absnum[i + 1]:
-                    for j in range(i):
-                        if absnum[j] > 0:
-                            absnum[j] -= absnum[j]*2
+                    absnum[:i] = [-num for num in absnum[:i] if num > 0]
                     if absnum == sorted(absnum):
                         return 'Yes', absnum
                     else:
@@ -94,4 +92,4 @@ def non_decreasing_sequence(*nums):
 
 
 
-#print(non_decreasing_sequence(7, 5, 4, 3, 2, 1))
+print(non_decreasing_sequence(7, 5, 4, 3, 5, 6))
