@@ -42,6 +42,8 @@ def biggest(arr):
 
 def answer_queries(k, *query_counts):
     query_counts = list(query_counts)
+    if len(set(query_counts)) == 1 and query_counts[0] == k:
+        return len(query_counts)+1
     if len(query_counts) == 1:
         return query_counts[0]//k+1
     for num in range(len(query_counts)):
