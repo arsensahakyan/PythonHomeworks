@@ -46,11 +46,11 @@ def answer_queries(k, *query_counts):
         return len(query_counts)+1
     if len(query_counts) == 1:
         return query_counts[0]//k+1
-    for num in range(len(query_counts)):
+        for num in range(len(query_counts)):
         if query_counts[num] > k and num+1<len(query_counts):
             query_counts[num + 1] += query_counts[num] - k
-        elif query_counts[num] > k and num + 1 <= len(query_counts):
-            return query_counts[num]//k+num
+        elif query_counts[num] > k and num + 1 >= len(query_counts):
+            return query_counts[num]//k+num+1
         elif query_counts[num] == k:
             continue
         else:
