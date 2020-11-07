@@ -50,14 +50,14 @@ def answer_queries(k, *query_counts):
         if query_counts[num] > k and num+1<len(query_counts):
             query_counts[num + 1] += query_counts[num] - k
         elif query_counts[num] > k and num + 1 <= len(query_counts):
-            return query_counts[num]//k+1
+            return query_counts[num]//k+num
         elif query_counts[num] == k:
             continue
         else:
             return num + 1
 
 
-#print(answer_queries(3,  100))
+#print(answer_queries(5, 5, 5, 5, 7))
 
 # 2
 def non_decreasing_sequence(*nums):
@@ -70,13 +70,12 @@ def non_decreasing_sequence(*nums):
         if absnum == sorted(absnum):
             return 'Yes', absnum
         else:
-            for i in range(len(absnum)-1):
-                if absnum[i] < absnum[i + 1]:
-                    absnum[:i] = [-num for num in absnum[:i] if num > 0]
-                    if absnum == sorted(absnum):
-                        return 'Yes', absnum
-                    else:
-                        return 'No'
+            i = absnum.index(min(absnum))
+            absnum[:i] = [-num for num in absnum[:i] if num > 0]
+            if absnum == sorted(absnum):
+                return 'Yes', absnum
+            else:
+                return 'No'
     else:
         if nums[0] == 0:
             if nums == sortnums:
