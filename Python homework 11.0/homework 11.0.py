@@ -35,18 +35,18 @@ create_a_testing_work_environment('C:/Users/Admin/Desktop/')
 
 def delete_all_the_files_and_directories_recursively(directory):
     if delete_all_the_files_and_directories_recursively.drname == '':
-        delete_all_the_files_and_directories_recursively.drname = directory.split('/')[-1]
-    drlen = len(delete_all_the_files_and_directories_recursively.drname)
+        delete_all_the_files_and_directories_recursively.drname = os.path.split(directory)[1]
+    drlen = -len(delete_all_the_files_and_directories_recursively.drname)
     print(f'dir : {delete_all_the_files_and_directories_recursively.drname}')
     for path in os.listdir(directory):
         new_path = os.path.join(directory, path)
         if os.path.isfile(new_path):
             os.remove(new_path)
-            if not os.listdir(directory) and directory[-drlen:] != \
+            if not os.listdir(directory) and directory[drlen:] != \
                     delete_all_the_files_and_directories_recursively.drname:
                 os.rmdir(directory)
         elif os.path.isdir(new_path):
-            if not os.listdir(new_path) and directory[-drlen:] != \
+            if not os.listdir(new_path) and directory[drlen:] != \
                     delete_all_the_files_and_directories_recursively.drname:
                 os.rmdir(new_path)
                 if not os.listdir(directory) and path != delete_all_the_files_and_directories_recursively.drname:
