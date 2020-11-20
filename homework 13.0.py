@@ -3,7 +3,6 @@
 # 1
 def print_num(num):
     lst = [i for i in range(1, num+1)]
-    return_vals = []
     i = 1
     j = 0
     next_ = 2
@@ -16,6 +15,16 @@ def print_num(num):
 
 # 2
 def successful_number(list_):
-    n = [i for i in range(len(list_))]
-    k = list(filter(lambda x: x == list_[x], n))
-    return k[0] if k else -1
+    k = len(list_) // 2
+    i = k
+    while i != 0 and i != len(list_)-1:
+        if list_[i] == i:
+            return i
+        elif list_[i] > k:
+            i -= 1
+        else:
+            i += 1
+    return -1
+
+
+print(successful_number([-1, 0, 6]))
