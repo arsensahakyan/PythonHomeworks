@@ -14,7 +14,7 @@ class User:
 
     def describe(self):
         classs = type(self).__name__
-        return self.name, a.info()
+        return self.name, self.info()
         # if isinstance(self, Person):
         #     return self.name, Person.info(self)
         # elif isinstance(self, Community):
