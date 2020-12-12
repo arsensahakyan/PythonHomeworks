@@ -13,11 +13,13 @@ class User:
         return ""
 
     def describe(self):
-        if isinstance(self, Person):
-            return self.name, Person.info(self)
-        elif isinstance(self, Community):
-            return self.name, Community.info(self)
-        return self.name
+        classs = type(self).__name__
+        return self.name, a.info()
+        # if isinstance(self, Person):
+        #     return self.name, Person.info(self)
+        # elif isinstance(self, Community):
+        #     return self.name, Community.info(self)
+        # return self.name
 
 
 class Person(User):
@@ -39,6 +41,10 @@ class Community(User):
 
     def info(self):
         return self.description
+
+
+a = Person('arsen', '11.11.2020')
+print(a.describe())
 
 
 # 2
@@ -111,7 +117,7 @@ class TicTacToe:
         return 'D'
 
     def make_move(self, row, col):
-        if self.board[row-1][col-1] != '-':
+        if self.board[row - 1][col - 1] != '-':
             return f"Cell {row}, {col} is already filled"
         else:
             count = 0
@@ -119,9 +125,9 @@ class TicTacToe:
                 count += el.count('x')
                 count -= el.count('o')
             if count == 0:
-                self.board[row-1][col-1] = 'x'
+                self.board[row - 1][col - 1] = 'x'
             else:
-                self.board[row-1][col-1] = 'o'
+                self.board[row - 1][col - 1] = 'o'
 
         if self.check_field() is None:
             return "Continue playing"
@@ -133,16 +139,15 @@ class TicTacToe:
             print("Game Over")
             return "Draw"
 
-
-t = TicTacToe()
-print(t.new_game())
-print(t.make_move(2, 2))
-t.get_field()
-print(t.make_move(2, 3))
-t.get_field()
-print(t.make_move(1, 1))
-t.get_field()
-print(t.make_move(1, 3))
-t.get_field()
-print(t.make_move(3, 3))
-t.get_field()
+# t = TicTacToe()
+# print(t.new_game())
+# print(t.make_move(2, 2))
+# t.get_field()
+# print(t.make_move(2, 3))
+# t.get_field()
+# print(t.make_move(1, 1))
+# t.get_field()
+# print(t.make_move(1, 3))
+# t.get_field()
+# print(t.make_move(3, 3))
+# t.get_field()
