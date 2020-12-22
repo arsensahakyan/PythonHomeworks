@@ -87,7 +87,7 @@ class MainHero(BaseCharacter):
         elif len(self.arsenal) == 1:
             print('i have one weapon')
         else:
-            i = self.arsenal.index(self.weapon) + 1
+            i = 0 if self.weapon is None else self.arsenal.index(self.weapon) + 1
             if i > len(self.arsenal) - 1: i = 0
             self.weapon = self.arsenal[i]
             print(f'i take weapon {self.weapon}')
