@@ -66,7 +66,7 @@ class MainHero(BaseCharacter):
         self.weapon = self.arsenal[0] if self.arsenal else None
 
     def hit(self, target):
-        if self.weapon is None:
+        if not self.arsenal:
             print('i am unarmed')
         else:
             if isinstance(target, BaseEnemy):
@@ -78,6 +78,8 @@ class MainHero(BaseCharacter):
         if isinstance(weapon, Weapon):
             self.arsenal.append(weapon)
             print(f"picked up {weapon.name}")
+            if self.weapon is None:
+                self.weapon = weapon
         else:
             print('it\'s not a Weapon')
 
@@ -86,6 +88,7 @@ class MainHero(BaseCharacter):
             print('i am unarmed')
         elif len(self.arsenal) == 1:
             print('i have one weapon')
+            self.weapon = self.arsenal[0]
         else:
             i = 0 if self.weapon is None else self.arsenal.index(self.weapon) + 1
             if i > len(self.arsenal) - 1: i = 0
