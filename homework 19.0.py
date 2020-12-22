@@ -1,3 +1,6 @@
+import math
+
+
 # Ruben
 class BaseCharacter:
     def __init__(self, pos_x, pos_y, hp):
@@ -5,17 +8,17 @@ class BaseCharacter:
         self.pos_y = pos_y
         self.hp = hp
 
-    def Move(self, delta_x, delta_y):
-        self.pos_x = delta_x
-        self.pos_y = delta_y
+    def move(self, delta_x, delta_y):
+        self.pos_x += delta_x
+        self.pos_y += delta_y
 
     def Is_alive(self):
         return self.hp > 0
 
-    def Get_damage(self, amount):
+    def get_damage(self, amount):
         self.hp -= amount
 
-    def Get_cords(self):
+    def get_coords(self):
         return self.pos_x, self.pos_y
 
 
@@ -32,8 +35,7 @@ class Weapon:
         if not target.Is_alive():
             print('the enemy is already defeated')
         else:
-            dist = abs(actor.pos_x - target.pos_x) + abs(actor.pos_y - target.pos_y)
-            print(f'dist = {dist}')
+            dist = math.sqrt((target.pos_x - actor.pos_x) ** 2 + (target.pos_y - actor.pos_y) ** 2)
             if dist > self.range:
                 print(f"target is too far for weapon {self.name}")
             else:
@@ -42,14 +44,14 @@ class Weapon:
 
 
 class BaseEnemy(BaseCharacter):
-    def __init__(self, pos_x, pos_y, hp, weapon):
+    def __init__(self, pos_x, pos_y, weapon, hp):
         super().__init__(pos_x, pos_y, hp)
         self.weapon = weapon
 
     def __str__(self):
         return f"enemy is in the position({self.pos_x},{self.pos_y}) with weapon {self.weapon}"
 
-    def Hit(self, target):
+    def hit(self, target):
         if isinstance(target, MainHero):
             self.weapon.Hit(self, target)
         else:
@@ -57,12 +59,13 @@ class BaseEnemy(BaseCharacter):
 
 
 class MainHero(BaseCharacter):
-    def __init__(self, pos_x, pos_y, hp, weapon):
+    def __init__(self, pos_x, pos_y, hp, name):
         super().__init__(pos_x, pos_y, hp)
+        self.name = name
         self.arsenal = []
-        self.weapon = weapon
+        self.weapon = self.arsenal[0] if self.arsenal else None
 
-    def Hit(self, target):
+    def hit(self, target):
         if self.weapon is None:
             print('i am unarmed')
         else:
@@ -71,7 +74,7 @@ class MainHero(BaseCharacter):
             else:
                 print('i can hit only enemy')
 
-    def Add_weapon(self, weapon):
+    def add_weapon(self, weapon):
         if isinstance(weapon, Weapon):
             self.arsenal.append(weapon)
             self.weapon = weapon
@@ -79,7 +82,7 @@ class MainHero(BaseCharacter):
         else:
             print('it\'s not a Weapon')
 
-    def Next_weapon(self):
+    def next_weapon(self):
         if not self.arsenal:
             print('i am unarmed')
         elif len(self.arsenal) == 1:
@@ -90,26 +93,30 @@ class MainHero(BaseCharacter):
             self.weapon = self.arsenal[i]
             print(f'i take weapon {self.weapon}')
 
-    def Heal(self, amount):
+    def heal(self, amount):
         self.hp += amount
         if self.hp > 200: self.hp = 200
         print(f'how my health is {self.hp}')
 
 
-weapon1 = Weapon('gmp', 20, 5)
-weapon2 = Weapon('gmp2', 40, 5)
-weapon3 = Weapon('gmp3', 60, 5)
-arsen = MainHero(10, 5, 200)
-arsen.Add_weapon(weapon1)
-arsen.Add_weapon(weapon2)
-arsen.Add_weapon(weapon3)
-hayk = BaseEnemy(10, 9, 200, weapon1)
-
-print(arsen.Is_alive())
-print(arsen.Get_cords())
-hayk.Hit(arsen)
-print(arsen.hp)
-arsen.Next_weapon()
-arsen.Next_weapon()
-arsen.Hit(hayk)
-print(hayk.hp)
+weapon1 = Weapon("Короткий меч", 5, 1)
+weapon2 = Weapon("Длинный меч", 7, 2)
+weapon3 = Weapon("Лук", 3, 10)
+weapon4 = Weapon("Лазерная орбитальная пушка", 1000, 1000)
+princess = BaseCharacter(100, 100, 100)
+archer = BaseEnemy(50, 50, weapon3, 100)
+armored_swordsman = BaseEnemy(10, 10, weapon2, 500)
+archer.hit(armored_swordsman)
+armored_swordsman.move(10, 10)
+print(armored_swordsman.get_coords())
+main_hero = MainHero(0, 0, "Король Артур", 200)
+main_hero.hit(armored_swordsman)
+main_hero.next_weapon()
+main_hero.add_weapon(weapon1)
+main_hero.hit(armored_swordsman)
+main_hero.add_weapon(weapon4)
+main_hero.hit(armored_swordsman)
+main_hero.next_weapon()
+main_hero.hit(princess)
+main_hero.hit(armored_swordsman)
+main_hero.hit(armored_swordsman)
