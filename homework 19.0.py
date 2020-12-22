@@ -57,10 +57,10 @@ class BaseEnemy(BaseCharacter):
 
 
 class MainHero(BaseCharacter):
-    def __init__(self, pos_x, pos_y, hp):
+    def __init__(self, pos_x, pos_y, hp, weapon):
         super().__init__(pos_x, pos_y, hp)
         self.arsenal = []
-        self.weapon = self.arsenal[0] if self.arsenal else None
+        self.weapon = weapon
 
     def Hit(self, target):
         if self.weapon is None:
