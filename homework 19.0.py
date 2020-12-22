@@ -77,7 +77,6 @@ class MainHero(BaseCharacter):
     def add_weapon(self, weapon):
         if isinstance(weapon, Weapon):
             self.arsenal.append(weapon)
-            self.weapon = weapon
             print(f"picked up {weapon.name}")
         else:
             print('it\'s not a Weapon')
